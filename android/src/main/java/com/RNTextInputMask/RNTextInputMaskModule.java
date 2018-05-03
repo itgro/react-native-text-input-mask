@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
+import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -78,6 +79,7 @@ public class RNTextInputMaskModule extends ReactContextBaseJavaModule {
           uiManager.addUIBlock(new UIBlock() {
               @Override
               public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                try {
                   EditText editText = (EditText)nativeViewHierarchyManager.resolveView(view);
 
                   final MaskedTextChangedListener listener = new MaskedTextChangedListener(
@@ -98,6 +100,9 @@ public class RNTextInputMaskModule extends ReactContextBaseJavaModule {
                   editText.setTag(listener);
 
                   editText.addTextChangedListener(listener);
+                } catch (IllegalViewOperationException e) {
+                  // NoOp
+                }
               }
           });
         }
