@@ -94,9 +94,9 @@ public class RNTextInputMaskModule extends ReactContextBaseJavaModule {
                     }
                   );
 
-                  if (editText.getTag() != null) {
-                      editText.removeTextChangedListener((TextWatcher) editText.getTag());
-                  }
+                  // if (editText.getTag() != null) {
+                  //    editText.removeTextChangedListener((TextWatcher) editText.getTag());
+                  // }
                   editText.setTag(listener);
 
                   editText.addTextChangedListener(listener);
